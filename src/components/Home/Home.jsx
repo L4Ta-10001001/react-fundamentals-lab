@@ -9,11 +9,11 @@ function Home() {
       <Typography 
         variant="h3" 
         component="h1" 
-        textAlign="center" 
+        className="home-title"
         sx={{ 
           fontFamily: 'Playfair Display, serif', 
-          fontWeight: 600,
-          mb: 1
+          fontWeight: 700,
+          color: '#2d3436'
         }}
       >
         Erik Herrera
@@ -21,8 +21,7 @@ function Home() {
       <Typography 
         variant="body1" 
         color="text.secondary" 
-        textAlign="center"
-        sx={{ mb: 3 }}
+        className="home-subtitle"
       >
         Select a tool:
       </Typography>
@@ -31,8 +30,11 @@ function Home() {
           variant="contained" 
           size="large" 
           onClick={() => navigate('/calculator')}
-          fullWidth
-          sx={{ py: 1.5 }}
+          className="home-btn"
+          sx={{ 
+            backgroundColor: '#00b894',
+            '&:hover': { backgroundColor: '#00cec9' }
+          }}
         >
           Calculator
         </Button>
@@ -40,8 +42,11 @@ function Home() {
           variant="contained" 
           size="large" 
           onClick={() => navigate('/todo')}
-          fullWidth
-          sx={{ py: 1.5 }}
+          className="home-btn"
+          sx={{ 
+            backgroundColor: '#6c5ce7',
+            '&:hover': { backgroundColor: '#a29bfe' }
+          }}
         >
           ToDo List
         </Button>
