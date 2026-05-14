@@ -4,7 +4,7 @@ import TodoListItems from './TodoListItems'
 import useTodoList from '../../hooks/useTodoList'
 
 function TodoList() {
-  const { tasks, draft, setDraft, addTask, removeTask } = useTodoList()
+  const { tasks, draft, setDraft, addTask, removeTask, canSubmit } = useTodoList()
 
   return (
     <Paper className="panel" elevation={0}>
@@ -21,6 +21,7 @@ function TodoList() {
             value={draft}
             label="New task"
             placeholder="e.g., Review hooks lesson notes"
+            inputProps={{ maxLength: 80 }}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
@@ -36,6 +37,7 @@ function TodoList() {
               border: '1px solid rgba(31, 111, 120, 0.2)',
             }}
             onClick={addTask}
+            disabled={!canSubmit}
             aria-label="Add task"
           >
             <AddCircleOutlineIcon />

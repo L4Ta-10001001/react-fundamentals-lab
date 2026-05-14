@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState } from 'react'
 const STORAGE_KEY = 'web-programming.todoList.v1'
 
 const readTasks = () => {
+  if (typeof window === 'undefined') {
+    return []
+  }
   const stored = localStorage.getItem(STORAGE_KEY)
   if (!stored) {
     return []
@@ -27,7 +30,13 @@ function useTodoList() {
   const [tasks, setTasks] = useState(() => readTasks())
   const [draft, setDraft] = useState('')
 
+  const trimmedDraft = draft.trim()
+  const canSubmit = trimmedDraft.length > 0
+
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
   }, [tasks])
 
@@ -41,14 +50,13 @@ function useTodoList() {
   )
 
   const addTask = () => {
-    const trimmed = draft.trim()
-    if (!trimmed) {
+    if (!trimmedDraft) {
       return
     }
 
     const newTask = {
       id: crypto.randomUUID(),
-      title: trimmed,
+      title: trimmedDraft,
       createdAt: new Date().toISOString(),
     }
 
@@ -66,6 +74,7 @@ function useTodoList() {
     setDraft,
     addTask,
     removeTask,
+    canSubmit,
   }
 }
 

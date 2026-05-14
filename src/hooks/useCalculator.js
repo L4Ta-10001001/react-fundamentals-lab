@@ -3,7 +3,7 @@ import { useState } from 'react'
 const OPERATIONS = ['+', '-', '*', '/']
 
 const hasOperator = (value) =>
-  OPERATIONS.some((operator) => value.includes(operator))
+  OPERATIONS.some((operator) => value.slice(1).includes(operator))
 
 const isValidInput = (value) => value !== '' && value !== '.'
 
@@ -48,44 +48,54 @@ const formatResult = (result) => {
   return rounded.toString()
 }
 
+const formatInput = (current, value) => {
+  if (current === '') {
+    return value === '.' ? '0.' : value
+  }
+  if (value === '.' && current.includes('.')) {
+    return current
+  }
+  if (current === '0' && value !== '.') {
+    return value
+  }
+  return `${current}${value}`
+}
+
 function useCalculator() {
   const [display, setDisplay] = useState('0')
   const [nextValue, setNextValue] = useState('')
 
+  const setExpression = (value) => {
+    setNextValue(value)
+    setDisplay(value || '0')
+  }
+
   const handleClear = () => {
-    setDisplay('0')
-    setNextValue('')
+    setExpression('')
   }
 
   const handleInput = (value) => {
-    setNextValue((current) => {
-      if (value === '.' && current.includes('.')) {
-        return current
-      }
-
-      const updated = current === '0' && value !== '.' ? value : `${current}${value}`
-      setDisplay(updated)
-      return updated
-    })
+    const updated = formatInput(nextValue, value)
+    setExpression(updated)
   }
 
   const handleOperation = (operator) => {
     if (nextValue === '' || nextValue === '-') {
-      setNextValue(operator === '-' ? '-' : nextValue)
-      setDisplay(operator === '-' ? '-' : display)
+      if (operator === '-') {
+        setExpression('-')
+      }
       return
     }
 
     if (hasOperator(nextValue)) {
-      const result = evaluateExpression(nextValue)
-      const resultString = formatResult(result)
-      setNextValue(`${resultString}${operator}`)
-      setDisplay(`${resultString}${operator}`)
+      const resultString = finalizeResult(evaluateExpression(nextValue))
+      if (resultString !== 'Error') {
+        setExpression(`${resultString}${operator}`)
+      }
       return
     }
 
-    setNextValue(`${nextValue}${operator}`)
-    setDisplay(`${nextValue}${operator}`)
+    setExpression(`${nextValue}${operator}`)
   }
 
   const evaluateExpression = (expression) => {
@@ -96,15 +106,24 @@ function useCalculator() {
     return applyOperation(parsed)
   }
 
+  const finalizeResult = (result) => {
+    const resultString = formatResult(result)
+    if (resultString === 'Error') {
+      setDisplay(resultString)
+      setNextValue('')
+      return resultString
+    }
+
+    setExpression(resultString)
+    return resultString
+  }
+
   const handleEvaluate = () => {
     if (!hasOperator(nextValue)) {
       return
     }
 
-    const result = evaluateExpression(nextValue)
-    const resultString = formatResult(result)
-    setDisplay(resultString)
-    setNextValue(resultString === 'Error' ? '' : resultString)
+    finalizeResult(evaluateExpression(nextValue))
   }
 
   return {

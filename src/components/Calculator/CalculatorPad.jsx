@@ -1,6 +1,11 @@
 import { Button, Stack } from '@mui/material'
 
-const INPUT_KEYS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.']
+const INPUT_ROWS = [
+  ['7', '8', '9'],
+  ['4', '5', '6'],
+  ['1', '2', '3'],
+  ['0', '.'],
+]
 const OPERATION_KEYS = ['/', '*', '-', '+']
 
 function CalculatorPad({ onClear, onInput, onOperation, onEvaluate }) {
@@ -16,54 +21,21 @@ function CalculatorPad({ onClear, onInput, onOperation, onEvaluate }) {
       </Stack>
       <Stack direction="row" spacing={1.5}>
         <Stack spacing={1.5} flex={1}>
-          <Stack direction="row" spacing={1.5}>
-            {INPUT_KEYS.slice(0, 3).map((value) => (
-              <Button
-                key={value}
-                variant="outlined"
-                onClick={() => onInput(value)}
-                fullWidth
-              >
-                {value}
-              </Button>
-            ))}
-          </Stack>
-          <Stack direction="row" spacing={1.5}>
-            {INPUT_KEYS.slice(3, 6).map((value) => (
-              <Button
-                key={value}
-                variant="outlined"
-                onClick={() => onInput(value)}
-                fullWidth
-              >
-                {value}
-              </Button>
-            ))}
-          </Stack>
-          <Stack direction="row" spacing={1.5}>
-            {INPUT_KEYS.slice(6, 9).map((value) => (
-              <Button
-                key={value}
-                variant="outlined"
-                onClick={() => onInput(value)}
-                fullWidth
-              >
-                {value}
-              </Button>
-            ))}
-          </Stack>
-          <Stack direction="row" spacing={1.5}>
-            {INPUT_KEYS.slice(9).map((value) => (
-              <Button
-                key={value}
-                variant="outlined"
-                onClick={() => onInput(value)}
-                fullWidth
-              >
-                {value}
-              </Button>
-            ))}
-          </Stack>
+          {INPUT_ROWS.map((row) => (
+            <Stack key={row.join('-')} direction="row" spacing={1.5}>
+              {row.map((value) => (
+                <Button
+                  key={value}
+                  variant="outlined"
+                  onClick={() => onInput(value)}
+                  fullWidth
+                  aria-label={`Input ${value}`}
+                >
+                  {value}
+                </Button>
+              ))}
+            </Stack>
+          ))}
         </Stack>
         <Stack spacing={1.5} minWidth={80}>
           {OPERATION_KEYS.map((value) => (
@@ -73,6 +45,7 @@ function CalculatorPad({ onClear, onInput, onOperation, onEvaluate }) {
               color="secondary"
               onClick={() => onOperation(value)}
               fullWidth
+              aria-label={`Operation ${value}`}
             >
               {value}
             </Button>

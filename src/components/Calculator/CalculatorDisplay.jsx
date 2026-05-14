@@ -13,7 +13,7 @@ function CalculatorDisplay({ value }) {
       <Typography variant="overline" color="text.secondary">
         Result
       </Typography>
-      <Typography variant="h4" sx={{ fontWeight: 600 }}>
+      <Typography variant="h4" sx={{ fontWeight: 600 }} aria-live="polite">
         {value}
       </Typography>
     </Paper>
