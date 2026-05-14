@@ -1,4 +1,4 @@
-import { IconButton, Paper, Stack, TextField, Typography, Button } from '@mui/material'
+import { IconButton, Paper, Stack, TextField, Typography, Box } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined'
 import { useNavigate } from 'react-router-dom'
@@ -10,29 +10,32 @@ function TodoList() {
   const { tasks, draft, setDraft, addTask, removeTask, canSubmit } = useTodoList()
 
   return (
-    <Stack spacing={2}>
+    <Box className="todo-wrapper">
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate('/')}
         variant="text"
-        sx={{ alignSelf: 'flex-start' }}
+        sx={{ alignSelf: 'flex-start', mb: 1 }}
       >
         Back
       </Button>
-      <Paper className="panel" elevation={0}>
-        <Stack spacing={2.5}>
+      <Paper className="panel" elevation={2}>
+        <Stack spacing={2}>
           <div>
-            <Typography variant="h2">ToDo List</Typography>
-            <Typography color="text.secondary">
-              Plan, add, and remove tasks with local persistence.
+            <Typography variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+              ToDo List
+            </Typography>
+            <Typography color="text.secondary" variant="body2">
+              Add and manage your tasks
             </Typography>
           </div>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
             <TextField
               fullWidth
+              size="small"
               value={draft}
               label="New task"
-              placeholder="e.g., Review hooks lesson notes"
+              placeholder="Add a task..."
               inputProps={{ maxLength: 80 }}
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={(event) => {
@@ -43,14 +46,15 @@ function TodoList() {
             />
             <IconButton
               color="primary"
-              sx={{
-                alignSelf: { xs: 'flex-start', sm: 'center' },
-                borderRadius: 3,
-                border: '1px solid rgba(31, 111, 120, 0.2)',
-              }}
               onClick={addTask}
               disabled={!canSubmit}
               aria-label="Add task"
+              sx={{ 
+                border: '1px solid',
+                borderColor: canSubmit ? 'primary.main' : 'grey.300',
+                borderRadius: 2,
+                px: 2
+              }}
             >
               <AddCircleOutlinedIcon />
             </IconButton>
@@ -58,7 +62,7 @@ function TodoList() {
           <TodoListItems tasks={tasks} onRemove={removeTask} />
         </Stack>
       </Paper>
-    </Stack>
+    </Box>
   )
 }
 

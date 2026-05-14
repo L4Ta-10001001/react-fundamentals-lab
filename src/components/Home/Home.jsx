@@ -1,26 +1,52 @@
-import { Button, Stack, Typography } from '@mui/material'
+import { Button, Typography, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
   const navigate = useNavigate()
 
   return (
-    <Stack spacing={3} alignItems="center" className="home">
-      <Typography variant="h3" component="h1" textAlign="center" sx={{ fontFamily: 'Playfair Display, serif', fontWeight: 600 }}>
+    <Box className="home">
+      <Typography 
+        variant="h3" 
+        component="h1" 
+        textAlign="center" 
+        sx={{ 
+          fontFamily: 'Playfair Display, serif', 
+          fontWeight: 600,
+          mb: 1
+        }}
+      >
         Erik Herrera
       </Typography>
-      <Typography variant="body1" color="text.secondary" textAlign="center">
+      <Typography 
+        variant="body1" 
+        color="text.secondary" 
+        textAlign="center"
+        sx={{ mb: 3 }}
+      >
         Select a tool:
       </Typography>
-      <Stack spacing={1.5} width="100%" maxWidth={440}>
-        <Button variant="contained" size="large" onClick={() => navigate('/calculator')}>
+      <Box className="home-buttons">
+        <Button 
+          variant="contained" 
+          size="large" 
+          onClick={() => navigate('/calculator')}
+          fullWidth
+          sx={{ py: 1.5 }}
+        >
           Calculator
         </Button>
-        <Button variant="contained" size="large" onClick={() => navigate('/todo')}>
+        <Button 
+          variant="contained" 
+          size="large" 
+          onClick={() => navigate('/todo')}
+          fullWidth
+          sx={{ py: 1.5 }}
+        >
           ToDo List
         </Button>
-      </Stack>
-    </Stack>
+      </Box>
+    </Box>
   )
 }
 

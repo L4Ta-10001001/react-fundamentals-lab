@@ -1,69 +1,68 @@
-import { Button, Stack } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
-const INPUT_ROWS = [
-  ['7', '8', '9'],
-  ['4', '5', '6'],
-  ['1', '2', '3'],
-  ['0', '.'],
-]
+const INPUT_KEYS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.']
 const OPERATION_KEYS = ['/', '*', '-', '+']
 
 function CalculatorPad({ onClear, onInput, onOperation, onEvaluate }) {
   return (
-    <Stack spacing={1.5}>
-      <Stack direction="row" spacing={1.5}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={onClear}
-          fullWidth
-          aria-label="Clear calculator"
-        >
-          Clear
-        </Button>
-        <Button
-          variant="contained"
-          onClick={onEvaluate}
-          fullWidth
-          aria-label="Evaluate expression"
-        >
-          Equals
-        </Button>
-      </Stack>
-      <Stack direction="row" spacing={1.5}>
-        <Stack spacing={1.5} flex={1}>
-          {INPUT_ROWS.map((row) => (
-            <Stack key={row.join('-')} direction="row" spacing={1.5}>
-              {row.map((value) => (
-                <Button
-                  key={value}
-                  variant="outlined"
-                  onClick={() => onInput(value)}
-                  fullWidth
-                  aria-label={`Input ${value}`}
-                >
-                  {value}
-                </Button>
-              ))}
-            </Stack>
+    <Grid container spacing={1} className="calculator-keypad">
+      <Grid item xs={9}>
+        <Grid container spacing={1}>
+          {INPUT_KEYS.map((value) => (
+            <Grid item xs={4} key={value}>
+              <Button
+                className="calc-btn calc-btn-number"
+                onClick={() => onInput(value)}
+                fullWidth
+                aria-label={`Input ${value}`}
+              >
+                {value}
+              </Button>
+            </Grid>
           ))}
-        </Stack>
-        <Stack spacing={1.5} minWidth={80}>
+        </Grid>
+      </Grid>
+      <Grid item xs={3}>
+        <Grid container spacing={1}>
           {OPERATION_KEYS.map((value) => (
-            <Button
-              key={value}
-              variant="contained"
-              color="secondary"
-              onClick={() => onOperation(value)}
-              fullWidth
-              aria-label={`Operation ${value}`}
-            >
-              {value}
-            </Button>
+            <Grid item xs={12} key={value}>
+              <Button
+                className="calc-btn calc-btn-operation"
+                onClick={() => onOperation(value)}
+                fullWidth
+                aria-label={`Operation ${value}`}
+              >
+                {value}
+              </Button>
+            </Grid>
           ))}
-        </Stack>
-      </Stack>
-    </Stack>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <Button
+              className="calc-btn calc-btn-clear"
+              onClick={onClear}
+              fullWidth
+              aria-label="Clear calculator"
+            >
+              Clear
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              className="calc-btn calc-btn-equals"
+              onClick={onEvaluate}
+              fullWidth
+              aria-label="Evaluate expression"
+            >
+              =
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 

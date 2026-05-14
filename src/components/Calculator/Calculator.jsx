@@ -1,42 +1,26 @@
-import { Paper, Stack, Typography, Button } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { useNavigate } from 'react-router-dom'
+import { Paper, Typography, Box, Grid } from '@mui/material'
 import CalculatorDisplay from './CalculatorDisplay'
 import CalculatorPad from './CalculatorPad'
 import useCalculator from '../../hooks/useCalculator'
 
 function Calculator() {
-  const navigate = useNavigate()
   const { display, onClear, onInput, onOperation, onEvaluate } = useCalculator()
 
   return (
-    <Stack spacing={2}>
-      <Button
-        startIcon={<ArrowBackIcon />}
-        onClick={() => navigate('/')}
-        variant="text"
-        sx={{ alignSelf: 'flex-start' }}
-      >
-        Back
-      </Button>
-      <Paper className="panel" elevation={0}>
-        <Stack spacing={2}>
-          <div>
-            <Typography variant="h2">Standard Calculator</Typography>
-            <Typography color="text.secondary">
-              Basic operations with precision-focused input.
-            </Typography>
-          </div>
-          <CalculatorDisplay value={display} />
-          <CalculatorPad
-            onClear={onClear}
-            onInput={onInput}
-            onOperation={onOperation}
-            onEvaluate={onEvaluate}
-          />
-        </Stack>
+    <Box className="calculator-wrapper">
+      <Paper className="calculator-phone" elevation={8}>
+        <Typography variant="h6" className="calculator-brand">
+          Calculator
+        </Typography>
+        <CalculatorDisplay value={display} />
+        <CalculatorPad
+          onClear={onClear}
+          onInput={onInput}
+          onOperation={onOperation}
+          onEvaluate={onEvaluate}
+        />
       </Paper>
-    </Stack>
+    </Box>
   )
 }
 
