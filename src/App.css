@@ -41,6 +41,10 @@
   text-align: left;
 }
 
+.panel .MuiPaper-root {
+  background-color: transparent;
+}
+
 .panel h2 {
   margin-top: 0;
 }

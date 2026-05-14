@@ -1,4 +1,6 @@
 import './App.css'
+import Calculator from './components/Calculator/Calculator'
+import TodoList from './components/TodoList/TodoList'
 
 function App() {
   return (
@@ -11,14 +13,8 @@ function App() {
         </p>
       </header>
       <section className="app-panels">
-        <div className="panel">
-          <h2>Standard Calculator</h2>
-          <p>Basic operations with a professional UI.</p>
-        </div>
-        <div className="panel">
-          <h2>ToDo List</h2>
-          <p>Add and remove tasks with local persistence.</p>
-        </div>
+        <Calculator />
+        <TodoList />
       </section>
     </main>
   )
