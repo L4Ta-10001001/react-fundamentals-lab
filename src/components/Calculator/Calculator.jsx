@@ -1,4 +1,4 @@
-import { Paper, Typography, Box, Grid } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CalculatorDisplay from './CalculatorDisplay'
 import CalculatorPad from './CalculatorPad'
 import useCalculator from '../../hooks/useCalculator'
@@ -8,8 +8,8 @@ function Calculator() {
 
   return (
     <Box className="calculator-wrapper">
-      <Paper className="calculator-phone" elevation={8}>
-        <Typography variant="h6" className="calculator-brand">
+      <Box className="calculator-phone">
+        <Typography className="calculator-brand">
           Calculator
         </Typography>
         <CalculatorDisplay value={display} />
@@ -19,7 +19,7 @@ function Calculator() {
           onOperation={onOperation}
           onEvaluate={onEvaluate}
         />
-      </Paper>
+      </Box>
     </Box>
   )
 }
