@@ -12,10 +12,21 @@ function CalculatorPad({ onClear, onInput, onOperation, onEvaluate }) {
   return (
     <Stack spacing={1.5}>
       <Stack direction="row" spacing={1.5}>
-        <Button variant="outlined" color="secondary" onClick={onClear} fullWidth>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={onClear}
+          fullWidth
+          aria-label="Clear calculator"
+        >
           Clear
         </Button>
-        <Button variant="contained" onClick={onEvaluate} fullWidth>
+        <Button
+          variant="contained"
+          onClick={onEvaluate}
+          fullWidth
+          aria-label="Evaluate expression"
+        >
           Equals
         </Button>
       </Stack>
