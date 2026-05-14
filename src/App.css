@@ -138,6 +138,9 @@
   width: 100%;
   max-width: 400px;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .todo-panel {
