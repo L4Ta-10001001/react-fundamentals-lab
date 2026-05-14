@@ -63,39 +63,39 @@ const formatInput = (current, value) => {
 
 function useCalculator() {
   const [display, setDisplay] = useState('0')
-  const [nextValue, setNextValue] = useState('')
+  const [expression, setExpression] = useState('')
 
-  const setExpression = (value) => {
-    setNextValue(value)
+  const updateExpression = (value) => {
+    setExpression(value)
     setDisplay(value || '0')
   }
 
   const handleClear = () => {
-    setExpression('')
+    updateExpression('')
   }
 
   const handleInput = (value) => {
-    const updated = formatInput(nextValue, value)
-    setExpression(updated)
+    const updated = formatInput(expression, value)
+    updateExpression(updated)
   }
 
   const handleOperation = (operator) => {
-    if (nextValue === '' || nextValue === '-') {
+    if (expression === '' || expression === '-') {
       if (operator === '-') {
-        setExpression('-')
+        updateExpression('-')
       }
       return
     }
 
-    if (hasOperator(nextValue)) {
-      const resultString = finalizeResult(evaluateExpression(nextValue))
+    if (hasOperator(expression)) {
+      const resultString = finalizeResult(evaluateExpression(expression))
       if (resultString !== 'Error') {
-        setExpression(`${resultString}${operator}`)
+        updateExpression(`${resultString}${operator}`)
       }
       return
     }
 
-    setExpression(`${nextValue}${operator}`)
+    updateExpression(`${expression}${operator}`)
   }
 
   const evaluateExpression = (expression) => {
@@ -110,20 +110,20 @@ function useCalculator() {
     const resultString = formatResult(result)
     if (resultString === 'Error') {
       setDisplay(resultString)
-      setNextValue('')
+      setExpression('')
       return resultString
     }
 
-    setExpression(resultString)
+    updateExpression(resultString)
     return resultString
   }
 
   const handleEvaluate = () => {
-    if (!hasOperator(nextValue)) {
+    if (!hasOperator(expression)) {
       return
     }
 
-    finalizeResult(evaluateExpression(nextValue))
+    finalizeResult(evaluateExpression(expression))
   }
 
   return {
