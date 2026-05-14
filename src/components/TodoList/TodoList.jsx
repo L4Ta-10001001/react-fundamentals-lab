@@ -1,5 +1,5 @@
 import { IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlined'
 import TodoListItems from './TodoListItems'
 import useTodoList from '../../hooks/useTodoList'
 
