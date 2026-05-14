@@ -1,22 +1,17 @@
-import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/Home/Home'
 import Calculator from './components/Calculator/Calculator'
 import TodoList from './components/TodoList/TodoList'
+import './App.css'
 
 function App() {
   return (
-    <main className="app">
-      <header className="app-header">
-        <p className="eyebrow">Web Programming Toolkit</p>
-        <h1>Calculator and ToDo List</h1>
-        <p className="subtitle">
-          A clean Vite + React foundation ready for modular, MUI-powered tools.
-        </p>
-      </header>
-      <section className="app-panels">
-        <Calculator />
-        <TodoList />
-      </section>
-    </main>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/calculator" element={<Calculator />} />
+      <Route path="/todo" element={<TodoList />} />
+      <Route path="*" element={<Home />} />
+    </Routes>
   )
 }
 
